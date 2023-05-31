@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Engineer Resume</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #1A237E;
+    }
+
+    h2 {
+      color: #1A237E;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .profile-image {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .contact-info img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .contact-info a {
+      color: #1A237E;
+      text-decoration: none;
+    }
+
+    .work-experience .experience-item:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    .education .education-item:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    .skills .skill-item:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    .projects .project-item:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    .certifications .certification-item:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    .additional-info {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="profile-image">
+      <img src="profile-image.jpg" alt="Profile Image" width="150" class="rounded-circle">
+    </div>
+
+    <div class="section">
+      <h1>Vijayarasa Niroshan</h1>
+      <div class="contact-info">
+        <img src="call.png" alt="Phone Icon">
+        <p>+94776287184</p>
+      </div>
+      <div class="contact-info">
+        <img src="email.png" alt="Email Icon">
+        <p>nnirosh448@gmail.com</p>
+      </div>
+      <div class="contact-info">
+        <img src="location.png" alt="Location Icon">
+        <p>No 472, Thirunagar, Yogapuram 42315, Sri Lanka</p>
+      </div>
+      <div class="contact-info">
+        <img src="github-icon.png" alt="GitHub Icon">
+        <p><a href="https://github.com/your-github-url">GitHub Profile</a></p>
+      </div>
+      <div class="contact-info">
+        <img src="linkedin-icon.png" alt="LinkedIn Icon">
+       
+        ```html
+        <p><a href="https://www.linkedin.com/in/your-linkedin-url">LinkedIn Profile</a></p>
+      </div>
+    </div>
+
+    <div class="section work-experience">
+      <h2>Work Experience</h2>
+      <div class="experience-item">
+        <h4>Intern Software Engineer</h4>
+        <p><strong>Company:</strong> CODEVITA (PVT) LTD</p>
+        <p><strong>Location:</strong> Jaffna</p>
+        <p><strong>Duration:</strong> 2021/7 – 2022/01</p>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Developed web applications using Laravel</li>
+        </ul>
+      </div>
+      <div class="experience-item">
+        <h4>Backend Engineer (Freelance)</h4>
+        <p><strong>Company:</strong> KETURE (PVT) LTD</p>
+        <p><strong>Location:</strong> Mannar</p>
+        <p><strong>Duration:</strong> 2022/1 – Present</p>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Developed backend using Fastify (Node.js)</li>
+        </ul>
+      </div>
+      <div class="experience-item">
+        <h4>Full-Stack Developer (Remote)</h4>
+        <p><strong>Company:</strong> HAMOCHI SDN. BHD.</p>
+        <p><strong>Location:</strong> Malaysia</p>
+        <p><strong>Duration:</strong> 2022/2 – Present</p>
+        <p><strong>Responsibilities:</strong></p>
+        <ul>
+          <li>Developed websites using Vuetify (Vue.js) and Fastify (Node.js)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section education">
+      <h2>Education</h2>
+      <div class="education-item">
+        <h4>University of Kelaniya</h4>
+        <p><strong>Degree:</strong> B.Sc Software Engineering (Hons)</p>
+        <p><strong>Graduation Year:</strong> 2023/06</p>
+        <p><strong>Qualifications:</strong></p>
+        <ul>
+          <li>Net Centric Applications</li>
+          <li>Mobile App Development</li>
+          <li>Data Science</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section skills">
+      <h2>Skills</h2>
+      <p><strong>Languages:</strong> Tamil, English, Sinhala</p>
+      <p><strong>Programming Languages:</strong> Js, C, PHP, Java, Python</p>
+      <p><strong>Frameworks:</strong> Laravel, Fastify, Vuetify, Vue.js, Node.js</p>
+      <p><strong>Other:</strong> SQL (MySQL, PgSQL), AWS (S3, Lambda, EC2, API Gateway, RDS, Cognito), Prisma, Swagger, Git, Linux, HTML/CSS</p>
+    </div>
+
+    <div class="section projects">
+      <h2>Projects</h2>
+      <div class="project-item">
+        <h4>CODEAFF</h4>
+        <p>An E-commerce site to compare prices of goods in different e-commerce sites.</p>
+        <p><strong>Technologies used:</strong> Laravel, HTML/CSS, Bootstrap, Js, MySQL</p>
+      </div>
+      <div class="project-item">
+        <h4>VESLOO</h4>
+        <p>An e-commerce site for ordering women's clothes.</p>
+        <p><strong>Technologies used:</strong> Laravel, HTML/CSS, Bootstrap, Js, jQuery, MySQL</p>
+      </div>
+      <div class="project-item">
+        <h4>REECHA HOTEL BOOKING</h4>
+        <p>An online hotel booking site for booking rooms and quarters.</p>
+        <p><strong>Technologies used:</strong> Laravel, HTML/CSS, Bootstrap, Js, jQuery, MySQL</p>
+      </div>
+      <div class="project-item">
+        <h4>F3 App</h4>
+        <p>An app that revolutionizes the fishing industry by connecting fishermen with buyers.</p>
+        <p><strong>Technologies used:</strong> Flutter, Fastify, Swagger, Prisma, MySQL, AWS S3</p>
+      </div>
+      <div class="project-item">
+        <h4>HAMOCHI EDUCATION GAMES</h4>
+        <p>Web-based educational game for primary students.</p>
+        <p><strong>Technologies used:</strong> Vuetify, Fastify, Swagger, Prisma, PgSQL, AWS S3</p>
+      </div>
+      <div class="project-item">
+        <h4>PULAVAR</h4>
+        <p>Web site for poets.</p>
+        <p><strong>Technologies used:</strong> Vuetify, Fastify, Swagger, Prisma, PgSQL, AWS S3, Payment gateway</p>
+      </div>
+    </div>
+
+    <div class="section certifications">
+      <h2>Certifications</h2>
+      <div class="certification-item">
+        <p>Java, C, SQL - SoloLearn</p>
+      </div>
+      <div class="certification-item">
+        <p>Jira Fundamentals Assessment - Atlassian University</p>
+      </div>
+      <div class="certification-item">
+        <p>Diploma In HTML5, CSS3 And JavaScript - Alison</p>
+      </div>
+      <div class="certification-item">
+        <p>Diploma In Design Thinking - Alison</p>
+      </div>
+    </div>
+
+    <div class="section additional-info">
+      <h2>Additional Information</h2>
+      <p>Feel free to contact me for any further information or references.</p>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
