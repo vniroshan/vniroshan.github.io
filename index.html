@@ -1,331 +1,1310 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vijayarasa Niroshan</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f5f5f5;
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niroshan Vijayarasa — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #080810;
+    --surface:   #0f0f1a;
+    --card:      #13131f;
+    --border:    rgba(255,255,255,0.07);
+    --accent:    #4fffb0;
+    --accent2:   #ff6b35;
+    --accent3:   #6c63ff;
+    --text:      #dddde8;
+    --muted:     #6a6a82;
+    --white:     #f0f0fa;
+  }
 
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      h1 {
-        color: #1a237e;
-      }
+  html { scroll-behavior: smooth; }
 
-      h2 {
-        color: #1a237e;
-        margin-bottom: 10px;
-      }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-      p {
-        margin-bottom: 5px;
-      }
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
 
-      .section {
-        margin-bottom: 20px;
-      }
-      .profile-image {
-        text-align: center;
-        margin-bottom: 20px;
-      }
+  /* ── GRID BG ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(79,255,176,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,255,176,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
 
-      .contact .contact-info {
-        display: flex !important;
-        align-items: center;
-        margin-bottom: 10px;
-      }
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(8,8,16,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--muted); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--bg);
+    background: var(--accent);
+    border: none; padding: 0.55rem 1.4rem;
+    cursor: pointer; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
 
-      .contact-info img {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
-      }
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
 
-      .contact-info a {
-        color: #1a237e;
-        text-decoration: none;
-      }
-      .work-experience {
-        margin-bottom: 20px;
-      }
-      .professional {
-        float: left;
-      }
-      .education {
-        margin-bottom: 20px;
-      }
-      .skills {
-        margin-bottom: 20px;
-      }
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    overflow: hidden;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    border: 1px solid rgba(79,255,176,0.3);
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform: scale(1); }
+    50% { opacity:0.4; transform: scale(0.8); }
+  }
 
-      .projects {
-        margin-bottom: 20px;
-      }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    animation: fadeUp 0.6s 0.1s ease both;
+    background: linear-gradient(
+      90deg,
+      var(--white) 0%,
+      var(--accent) 30%,
+      var(--accent3) 50%,
+      var(--accent) 70%,
+      var(--white) 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeUp 0.6s 0.1s ease both, shimmer 3s ease-in-out infinite;
+  }
+  .hero-name .line-2 { 
+    background: linear-gradient(
+      90deg,
+      var(--accent) 0%,
+      var(--accent3) 30%,
+      #4fffb0 50%,
+      var(--accent3) 70%,
+      var(--accent) 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+  }
 
-      .certifications {
-        margin-bottom: 20px;
-      }
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    max-width: 520px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-sub .hl { color: var(--text); }
 
-      .additional-info {
-        margin-bottom: 20px;
-      }
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 3rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--bg);
+    background: var(--accent);
+    border: none; padding: 0.8rem 2rem;
+    cursor: pointer; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-outline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.8rem 2rem;
+    cursor: pointer; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-      .col-6 {
-        width: 50%;
-        float: left;
-      }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .stat-value span { color: var(--accent); }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
 
-      @media (max-width: 600px) {
-        .col-6 {
-          width: 100%;
-          float: none;
-        }
-      }
-    </style>
-  </head>
+  .hero-deco {
+    position: absolute; right: 4rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(79,255,176,0.15);
+    line-height: 2;
+    text-align: right;
+    user-select: none;
+    animation: fadeIn 1s 0.5s ease both;
+  }
 
-  <body>
-    <div class="container">
-      <div class="profile-image">
-        <img src="profile-image.jpg" alt="Profile Image" width="150" />
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(24px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity:0; } to { opacity:1; }
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 4rem;
+  }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* ── SKILLS ── */
+  #skills {
+    padding: 7rem 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-block {
+    background: var(--card);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+  .skill-block:hover { background: #1a1a2a; }
+  .skill-block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .skill-block-title::before {
+    content: '//'; color: var(--muted);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── EXPERIENCE ── */
+  #experience {
+    padding: 7rem 4rem;
+  }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-meta {}
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .exp-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-top: 0.3rem;
+  }
+  .exp-content {}
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+  .exp-company {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .exp-bullets li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+  .exp-bullets li strong { color: var(--text); font-weight: 400; }
+
+  /* ── PROJECTS ── */
+  #projects {
+    padding: 7rem 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .project-card {
+    background: var(--card);
+    transition: background 0.25s;
+    overflow: hidden;
+  }
+  .project-card:hover { background: #161624; }
+  .project-card.featured {
+    grid-column: span 2;
+  }
+  .project-screenshot {
+    width: 100%;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .project-card.featured .project-screenshot {
+    height: 420px;
+  }
+  .project-card:not(.featured) .project-screenshot {
+    height: 240px;
+  }
+  .screenshot-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(79,255,176,0.015) 0px,
+        rgba(79,255,176,0.015) 1px,
+        transparent 1px,
+        transparent 24px
+      );
+  }
+  .placeholder-icon {
+    width: 56px; height: 56px;
+    border: 1.5px solid rgba(79,255,176,0.2);
+    border-radius: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .placeholder-icon svg { width: 24px; height: 24px; stroke: rgba(79,255,176,0.4); fill: none; }
+  .placeholder-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(79,255,176,0.3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  /* Real screenshot image */
+  .project-screenshot img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background: var(--bg);
+  }
+
+  .project-body { padding: 2rem; }
+  .project-top {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .project-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    flex-shrink: 0;
+    border: 1px solid;
+  }
+  .badge-live { color: var(--accent); border-color: rgba(79,255,176,0.4); }
+  .badge-uni  { color: #6c63ff; border-color: rgba(108,99,255,0.4); }
+  .badge-proj { color: var(--muted); border-color: var(--border); }
+  .badge-intern { color: #ff9f43; border-color: rgba(255,159,67,0.4); }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.65;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    background: rgba(79,255,176,0.06);
+    border: 1px solid rgba(79,255,176,0.15);
+    padding: 0.2rem 0.55rem;
+    letter-spacing: 0.05em;
+  }
+
+  .project-footer {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .project-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  .project-link:hover { opacity: 1; }
+
+  /* ── EDUCATION ── */
+  #education {
+    padding: 7rem 4rem;
+    border-top: 1px solid var(--border);
+  }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .edu-card {
+    background: var(--card);
+    padding: 2.5rem;
+    transition: background 0.2s;
+  }
+  .edu-card:hover { background: #161624; }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .edu-uni {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 7rem 4rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .contact-tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .contact-tagline span { color: var(--accent); }
+  .contact-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 1.2rem;
+    max-width: 380px;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-item:hover { border-color: var(--accent); background: #161624; }
+  .contact-item-icon {
+    width: 36px; height: 36px;
+    background: rgba(79,255,176,0.08);
+    border: 1px solid rgba(79,255,176,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-item-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; }
+  .contact-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .contact-item-value {
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
+  }
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .footer-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(79,255,176,0.3);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, #skills, #experience, #projects, #education, #contact, footer {
+      padding-left: 1.5rem; padding-right: 1.5rem;
+    }
+    .hero-deco { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .project-card.featured .project-screenshot { height: 240px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">{}</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:nnirosh448@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-badge">Available for work · Coventry, UK</div>
+  <h1 class="hero-name">
+    Niroshan<br>
+    <span class="line-2">Vijayarasa</span>
+  </h1>
+  <p class="hero-sub">
+    <span class="hl">Full-Stack Developer</span> specialising in Node.js, Vue.js,<br>
+    payment systems & scalable API integrations.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-value">4<span>+</span></div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div>
+      <div class="stat-value">35<span>k+</span></div>
+      <div class="stat-label">Users Served</div>
+    </div>
+    <div>
+      <div class="stat-value">£50<span>k+</span></div>
+      <div class="stat-label">Monthly Transactions</div>
+    </div>
+    <div>
+      <div class="stat-value">10<span>+</span></div>
+      <div class="stat-label">Live Projects</div>
+    </div>
+  </div>
+
+  <div class="hero-deco">
+    const dev = {<br>
+    &nbsp;&nbsp;name: "Niroshan",<br>
+    &nbsp;&nbsp;stack: ["Node.js", "Vue.js"],<br>
+    &nbsp;&nbsp;payments: ["Stripe", "Wise"],<br>
+    &nbsp;&nbsp;location: "Coventry, UK",<br>
+    &nbsp;&nbsp;status: "available",<br>
+    }
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-tag">// 01 — Skills</div>
+    <h2 class="section-title">Technical Stack</h2>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-block">
+      <div class="skill-block-title">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Fastify.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">Laravel</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Prisma ORM</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">GraphQL</span>
       </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Vue.js</span>
+        <span class="skill-tag">Vuetify</span>
+        <span class="skill-tag">Vuex</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML/CSS</span>
+        <span class="skill-tag">Bootstrap</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">Firebase</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Payments & Finance</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Stripe</span>
+        <span class="skill-tag">Wise API</span>
+        <span class="skill-tag">Xero</span>
+        <span class="skill-tag">QuickBooks</span>
+        <span class="skill-tag">Webhooks</span>
+        <span class="skill-tag">Payouts</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">Integrations</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Google APIs</span>
+        <span class="skill-tag">HubSpot</span>
+        <span class="skill-tag">Twilio</span>
+        <span class="skill-tag">Zoho</span>
+        <span class="skill-tag">OpenAI</span>
+        <span class="skill-tag">Telegram Bot</span>
+        <span class="skill-tag">SignWell</span>
+        <span class="skill-tag">OneSignal</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-title">DevOps & Tooling</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">DigitalOcean</span>
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">GitHub / CI-CD</span>
+        <span class="skill-tag">JWT / OAuth 2.0</span>
+        <span class="skill-tag">WebSockets</span>
+        <span class="skill-tag">RBAC</span>
+        <span class="skill-tag">Swagger</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="section">
-        <h1>Vijayarasa Niroshan</h1>
-        <div class="contact">
-          <div class="col-6">
-            <div class="contact-info">
-              <img src="call.png" alt="Phone Icon" />
-              <p>+94776287184</p>
-            </div>
-            <div class="contact-info">
-              <img src="email.png" alt="Email Icon" />
-              <p>nnirosh448@gmail.com</p>
-            </div>
-            <div class="contact-info">
-              <img src="address.png" alt="Location Icon" />
-              <p>No 472, Thirunagar, Yogapuram 42315, Sri Lanka</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="contact-info">
-              <img src="github.png" alt="GitHub Icon" />
-              <p>
-                <a target="_blank" href="https://github.com/vniroshan">GitHub Profile</a>
-              </p>
-            </div>
-            <div class="contact-info">
-              <img src="linkedin.png" alt="LinkedIn Icon" />
-              <p>
-                <a target="_blank" href="https://www.linkedin.com/in/niroshanrajh/"
-                  >LinkedIn Profile</a
-                >
-              </p>
-            </div>
-            <div class="contact-info">
-              <img src="facebook.png" alt="Facebook Icon" />
-              <p>
-                <a target="_blank" href="https://www.facebook.com/niroshan.niro.1998"
-                  >Facebook Profile</a
-                >
-              </p>
-            </div>
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-tag">// 02 — Experience</div>
+    <h2 class="section-title">Where I've Worked</h2>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">May 2025 – Present</div>
+        <div class="exp-location">UK, Remote</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Full-Stack Engineer</div>
+        <div class="exp-company">Tapes To Digital</div>
+        <ul class="exp-bullets">
+          <li>Built internal operations platform (Fastify, Vuetify, PostgreSQL) serving <strong>30+ technicians</strong> and processing <strong>300+ monthly orders</strong></li>
+          <li>Integrated Stripe with webhook handling, managing <strong>£50,000+ in monthly transactions</strong></li>
+          <li>Automated salary payouts via Wise API and <strong>500+ customer emails/month</strong> via Gmail API</li>
+          <li>Automated technician scheduling via Google Calendar API, reducing manual overhead significantly</li>
+          <li>Built HubSpot CRM integration with order syncing, inventory alerts, and RBAC across 4 roles</li>
+          <li>Analytics dashboard with daily Google Reviews aggregation tracking <strong>200+ reviews/month</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Feb 2022 – Apr 2025</div>
+        <div class="exp-location">Malaysia, Remote</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Software Developer</div>
+        <div class="exp-company">Hamochi.my</div>
+        <ul class="exp-bullets">
+          <li>Led backend for an educational platform serving <strong>35,000+ students</strong> and 200+ teachers with real-time collaboration</li>
+          <li>Designed microservices architecture supporting <strong>10,000+ daily API requests</strong></li>
+          <li>Built multilingual support (English, Malay, Chinese), increasing engagement by <strong>45%</strong></li>
+          <li>Automated certificate generation via Google Drive API — <strong>5,000+ certs per event</strong></li>
+          <li>Managed <strong>50GB+ game assets</strong> on DigitalOcean Spaces; documented all APIs with Swagger</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2021 – Jan 2022</div>
+        <div class="exp-location">Sri Lanka</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Intern Software Engineer</div>
+        <div class="exp-company">Codevita</div>
+        <ul class="exp-bullets">
+          <li>Built admin panel features for the Codeaff e-commerce learning platform using Laravel and Bootstrap</li>
+          <li>Delivered complete dashboards for two client projects: Food Ordering and Hotel Booking systems</li>
+          <li>Implemented MySQL schemas, CRUD operations, and server-side logic under Laravel MVC</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-tag">// 03 — Projects</div>
+    <h2 class="section-title">Featured Work</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- FEATURED: Tapes To Digital -->
+    <div class="project-card featured reveal">
+      <div class="project-screenshot">
+        <img src="Tapes To Digital.png" alt="Tapes To Digital Platform">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Tapes To Digital — Internal Operations Platform</div>
+          <span class="project-badge badge-live">🟢 Live</span>
+        </div>
+        <p class="project-desc">
+          Comprehensive internal ops platform supporting 30+ technicians, processing 300+ monthly orders.
+          Integrates Stripe (£50k+/mo), Wise salary payouts, HubSpot CRM, Gmail automation, Google Calendar
+          scheduling, inventory management, RBAC, QR parcel tracking, and 10+ third-party APIs.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">Vuetify</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Stripe</span>
+          <span class="stack-tag">Wise API</span>
+          <span class="stack-tag">HubSpot</span>
+          <span class="stack-tag">Google APIs</span>
+          <span class="stack-tag">RBAC</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">May 2025 – Present</span>
+      </div>
+    </div>
+
+    <!-- TrustedFixers -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="TrustedFixers.png" alt="TrustedFixers">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">TrustedFixers.tech</div>
+          <span class="project-badge badge-live">🟢 Live</span>
+        </div>
+        <p class="project-desc">
+          Service management platform connecting customers with technicians, built for 500+ monthly requests.
+          Real-time WebSocket updates, JWT auth, multi-role access, Stripe payments, and Twilio SMS.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">Prisma</span>
+          <span class="stack-tag">WebSocket</span>
+          <span class="stack-tag">Stripe</span>
+          <span class="stack-tag">Twilio</span>
+          <span class="stack-tag">OpenAI</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Sep 2025 – Jan 2026</span>
+        <a href="https://trustedfixers.tech" target="_blank" class="project-link">trustedfixers.tech →</a>
+      </div>
+    </div>
+
+    <!-- ClockWise -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="ClockWise.png" alt="ClockWise">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">ClockWise — Remote Productivity Tracker</div>
+          <span class="project-badge badge-proj">Desktop App</span>
+        </div>
+        <p class="project-desc">
+          Windows desktop application tracking keyboard/mouse activity, screenshots, visited URLs, and app usage
+          to provide detailed remote workforce productivity insights.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">.NET Framework</span>
+          <span class="stack-tag">.NET MAUI</span>
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Dec 2025 – Jan 2026</span>
+      </div>
+    </div>
+
+    <!-- Hamochi -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="Hamochi.png" alt="Hamochi">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Hamochi — Interactive Learning Platform</div>
+          <span class="project-badge badge-live">🟢 Live</span>
+        </div>
+        <p class="project-desc">
+          Educational game platform serving 35,000+ students across Malaysia. Built teacher dashboards,
+          Telegram Bot, mobile app, multilingual support, Stripe subscriptions, and 10,000+ daily API requests.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">Vue.js</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Stripe</span>
+          <span class="stack-tag">Phaser.js</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Feb 2022 – May 2025</span>
+        <a href="https://hamochi.my" target="_blank" class="project-link">hamochi.my →</a>
+      </div>
+    </div>
+
+    <!-- Testify -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="Testify.png" alt="Testify">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Testify — Online Quiz & Assessment Platform</div>
+          <span class="project-badge badge-live">🟢 Live</span>
+        </div>
+        <p class="project-desc">
+          Secure quiz platform with fraud prevention, multiple question types, and separate admin/candidate
+          portals. Google Speech-to-Text API for audio transcription.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">Vuetify</span>
+          <span class="stack-tag">Prisma ORM</span>
+          <span class="stack-tag">Google Speech-to-Text</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Jul 2025 – Aug 2025</span>
+        <a href="https://testify.tapestodigital.biz" target="_blank" class="project-link">testify.tapestodigital.biz →</a>
+      </div>
+    </div>
+
+    <!-- FitLife -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="FitLife.png" alt="FitLife">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">FitLife — Smart Fitness Tracker</div>
+          <span class="project-badge badge-uni">University</span>
+        </div>
+        <p class="project-desc">
+          AI-powered fitness tracking web app with machine learning workout classification, predictive algorithms,
+          interactive dashboards, and real-time activity analysis using WEKA.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Java Servlets</span>
+          <span class="stack-tag">JSP</span>
+          <span class="stack-tag">WEKA</span>
+          <span class="stack-tag">Machine Learning</span>
+          <span class="stack-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Sep 2025 – Dec 2025</span>
+      </div>
+    </div>
+
+    <!-- Ride Sharing -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <img src="Intercity Ride-Sharing App.png" alt="Ride Sharing App">
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Intercity Ride-Sharing App</div>
+          <span class="project-badge badge-uni">University</span>
+        </div>
+        <p class="project-desc">
+          UK-focused intercity ride-sharing platform with AI-powered seat search, real-time availability,
+          automated ride management, eco-friendly travel focus, and Azure deployment.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Vuetify</span>
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">Azure</span>
+          <span class="stack-tag">AI Search</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">May 2025 – Aug 2025</span>
+      </div>
+    </div>
+
+    <!-- Thusi -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <!-- REPLACE src with actual screenshot: <img src="your-screenshot.png" alt="Thusi"> -->
+        <div class="screenshot-placeholder">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><polygon points="3 9 12 2 21 9 21 20 3 20 3 9"/></svg>
           </div>
         </div>
       </div>
-
-      <div class="section professional">
-        <h2>Professional Summary</h2>
-        <p>
-          I am a skilled software developer with 1 year 8 months of experience
-          in Node.js. I have a proven track record of delivering high-quality
-          software products on time. I am proficient in Fastify (Node.js),
-          Laravel (PHP), Vuetify (Vue.js) and passionate about staying
-          up-to-date with the latest industry trends and technologies. I am a
-          collaborative team player committed to building strong working
-          relationships with colleagues, stakeholders, and clients.
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Thusi — Construction Management System</div>
+          <span class="project-badge badge-proj">Client</span>
+        </div>
+        <p class="project-desc">
+          Construction project tracking and task management system. Led backend architecture, REST API design,
+          scalable data modeling, and junior developer mentoring at Keture.
         </p>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">Prisma ORM</span>
+        </div>
       </div>
-
-      <div class="section work-experience">
-        <h2>Work Experience</h2>
-        <p><strong>Intern Software Engineer</strong></p>
-        <p><em>Codevita (Pvt) Ltd</em></p>
-        <p>Jaffna</p>
-        <p>July 2021 - January 2022</p>
-        <ul>
-          <li>Developed web applications using Laravel.</li>
-        </ul>
-
-        <p><strong>Backend Engineer (Freelance)</strong></p>
-        <p><em>Keture (Pvt) Ltd</em></p>
-        <p>Mannar</p>
-        <p>January 2022 - Present</p>
-        <ul>
-          <li>Developed the backend using Fastify (Node.js).</li>
-        </ul>
-
-        <p><strong>Full-Stack Developer (Remote)</strong></p>
-        <p><em>Hamochi Sdn. Bhd.</em></p>
-        <p>Malaysia</p>
-        <p>February 2022 - Present</p>
-        <ul>
-          <li>
-            Developed websites using Vuetify (Vue.js) and Fastify (Node.js).
-          </li>
-        </ul>
+      <div class="project-footer">
+        <span class="project-period">Apr 2025 – Jun 2025</span>
       </div>
-
-      <div class="section education">
-        <h2>Education</h2>
-        <p><strong>University of Kelaniya</strong></p>
-        <p>B.Sc Software Engineering (Hons)</p>
-        <p>February 2019 - June 2023</p>
-        <ul>
-          <li>Net Centric Applications</li>
-          <li>Mobile App Development</li>
-          <li>Data Science</li>
-        </ul>
-      </div>
-
-      <div class="section skills">
-        <h2>Skills</h2>
-        <p><strong>Languages:</strong> Tamil, English, Sinhala</p>
-        <p>
-          <strong>Programming Languages:</strong> JavaScript, C, PHP, Java,
-          Python
-        </p>
-        <p>
-          <strong>Frameworks:</strong> Laravel, Fastify, Vuetify, Vue.js,
-          Node.js
-        </p>
-        <p>
-          <strong>Other:</strong> SQL (MySQL, PgSQL), AWS (S3, Lambda, EC2, API
-          Gateway, RDS, Cognito), Prisma, Swagger, Git, Linux, HTML/CSS
-        </p>
-      </div>
-
-      <div class="section projects">
-        <h2>Projects</h2>
-        <ol>
-          <li>
-            <p>
-              <strong>Codeaff:</strong>
-              <a href="https://youtu.be/4DnuxTjeAxs" target="_blank"
-                >Watch Demo</a
-              >
-            </p>
-            <p>
-              This is an E-commerce site. It is possible to order by comparing
-              the prices of goods in different e-commerce sites.
-            </p>
-            <p>
-              <em>Technologies used:</em> Laravel, HTML/CSS, Bootstrap,
-              JavaScript, MySQL
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Vesloo:</strong>
-              <a href="https://youtu.be/5PW1jRLtRXU" target="_blank"
-                >Watch Demo</a
-              >
-            </p>
-            <p>This is an e-commerce site for ordering women's clothes.</p>
-            <p>
-              <em>Technologies used:</em> Laravel, HTML/CSS, Bootstrap,
-              JavaScript, jQuery, MySQL
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Reecha Hotel Booking:</strong>
-              <a href="https://youtu.be/dZfFShi9eUs" target="_blank"
-                >Watch Demo</a
-              >
-            </p>
-            <p>
-              It is an online hotel booking site where users can book rooms and
-              quarters.
-            </p>
-            <p>
-              <em>Technologies used:</em> Laravel, HTML/CSS, Bootstrap,
-              JavaScript, jQuery, MySQL
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>F3 App:</strong>
-              <a
-                href="https://play.google.com/store/apps/details?id=com.f3seafood.fapp"
-                target="_blank"
-                >Download on Google Play</a
-              >
-            </p>
-            <p>
-              F3 App revolutionizes the fishing industry by directly connecting
-              fishermen with buyers, enabling them to sell their catch at the
-              best price.
-            </p>
-            <p>
-              <em>Technologies used:</em> Flutter, Fastify, Swagger, Prisma,
-              MySQL, AWS S3
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Hamochi Education Games:</strong>
-              <a href="http://www.hamochi.my/" target="_blank">Visit Website</a>
-            </p>
-            <p>Web-based educational game for primary students.</p>
-            <p>
-              <em>Technologies used:</em> Vuetify, Fastify, Swagger, Prisma,
-              PgSQL, AWS S3
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Pulavar:</strong>
-              <a href="https://pulavar.netlify.app/" target="_blank"
-                >Visit Website</a
-              >
-            </p>
-            <p>Web site for poets.</p>
-            <p>
-              <em>Technologies used:</em> Vuetify, Fastify, Swagger, Prisma,
-              PgSQL, AWS S3, Payment gateway
-            </p>
-          </li>
-        </ol>
-      </div>
-
-      <div class="section certifications">
-        <h2>Certifications</h2>
-        <ul>
-          <li>Java, C, SQL - SoloLearn</li>
-          <li>Jira Fundamentals Assessment - Atlassian University</li>
-          <li>Diploma In HTML5, CSS3 And JavaScript - Alison</li>
-          <li>Diploma In Design Thinking - Alison</li>
-        </ul>
-      </div>
-
-      <!-- <div class="section additional-info">
-      <h2>Additional Information</h2>
-      <p>In the future, I have the ability to easily add any content.</p>
-    </div> -->
     </div>
-  </body>
+
+    <!-- OKE Products -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <!-- REPLACE src with actual screenshot: <img src="your-screenshot.png" alt="OKE Products"> -->
+        <div class="screenshot-placeholder">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">OKE-Products — Order Management System</div>
+          <span class="project-badge badge-proj">Client</span>
+        </div>
+        <p class="project-desc">
+          Online product ordering system with complete REST APIs for both customer app and admin dashboard
+          via Firebase Functions. QuickBooks integration for automated invoicing workflows.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Firebase</span>
+          <span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">Prisma</span>
+          <span class="stack-tag">QuickBooks</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Nov 2024 – May 2025</span>
+      </div>
+    </div>
+
+    <!-- F3 App -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+        <!-- REPLACE src with actual screenshot: <img src="your-screenshot.png" alt="F3 App"> -->
+        <div class="screenshot-placeholder">
+          <div class="placeholder-icon">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">F3 App — Fishermen-to-Buyer Marketplace</div>
+          <span class="project-badge badge-proj">Client</span>
+        </div>
+        <p class="project-desc">
+          Direct-to-buyer fishing marketplace platform. Built REST APIs and database architecture, connecting
+          fishermen directly with buyers to optimise catch sales.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Fastify</span>
+          <span class="stack-tag">Swagger API</span>
+          <span class="stack-tag">Prisma ORM</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">AWS S3</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">May 2024 – Jul 2024</span>
+      </div>
+    </div>
+
+    <!-- Reecha -->
+    <div class="project-card reveal">
+      <div class="project-screenshot">
+      <img src="Reecha.png" alt="Reecha"> 
+      </div>
+      <div class="project-body">
+        <div class="project-top">
+          <div class="project-name">Reecha — Online Room Booking Site</div>
+          <span class="project-badge badge-intern">Internship</span>
+        </div>
+        <p class="project-desc">
+          Admin-focused hotel management system with SSO authentication and role/capability-based access control.
+          Built ticketing module for operational and customer issue tracking.
+          Integrated automated multilingual content translation to support international users.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Laravel</span>
+          <span class="stack-tag">MySQL</span>
+          <span class="stack-tag">Bootstrap</span>
+          <span class="stack-tag">JavaScript</span>
+          <span class="stack-tag">Single Sign-On (SSO)</span>
+        </div>
+      </div>
+      <div class="project-footer">
+        <span class="project-period">Aug 2021 – Jan 2022</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="section-header reveal">
+    <div class="section-tag">// 04 — Education</div>
+    <h2 class="section-title">Academic Background</h2>
+  </div>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-degree">MSc Computer Science</div>
+      <div class="edu-uni">Coventry University, UK</div>
+      <div class="edu-period">May 2025 – April 2026</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">BSc (Hons) Software Engineering</div>
+      <div class="edu-uni">University of Kelaniya, Sri Lanka</div>
+      <div class="edu-period">Feb 2019 – Jul 2023</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="section-tag">// 05 — Contact</div>
+      <div class="contact-tagline">Let's build<br>something <span>great.</span></div>
+      <p class="contact-note">
+        I'm currently available for full-time roles and freelance projects.
+        Based in Coventry, UK — eligible to work in the UK.
+      </p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:nnirosh448@gmail.com" class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-value">nnirosh448@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/niroshanrajh" target="_blank" class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">LinkedIn</div>
+          <div class="contact-item-value">linkedin.com/in/niroshanrajh</div>
+        </div>
+      </a>
+      <a href="https://github.com/vniroshan" target="_blank" class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">GitHub</div>
+          <div class="contact-item-value">github.com/vniroshan</div>
+        </div>
+      </a>
+      <a href="tel:+447735159872" class="contact-item">
+        <div class="contact-item-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.17 1.18C.17.37.72-.04 1.53 0h3a2 2 0 012 1.72c.13 1 .36 1.97.71 2.9a2 2 0 01-.45 2.11L5.91 7.09a16 16 0 006 6l.86-.86a2 2 0 012.11-.45c.93.35 1.9.58 2.9.71A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-item-label">Phone</div>
+          <div class="contact-item-value">+44 7735 159872</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-copy">© 2026 Niroshan Vijayarasa — All rights reserved</div>
+  <div class="footer-tag">Built with precision · Coventry, UK</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger children in same parent
+  document.querySelectorAll('.projects-grid, .skills-grid, .exp-list, .edu-grid').forEach(grid => {
+    const children = grid.querySelectorAll('.reveal');
+    children.forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.07}s`;
+    });
+  });
+
+  // Active nav link highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
 </html>
