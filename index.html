@@ -626,6 +626,38 @@
     letter-spacing: 0.05em;
   }
 
+  /* ── PDF DOWNLOAD BUTTON ── */
+  .btn-pdf {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid rgba(79,255,176,0.35);
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-pdf:hover { background: rgba(79,255,176,0.07); border-color: var(--accent); }
+  .btn-pdf:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-pdf svg { width: 13px; height: 13px; stroke: currentColor; fill: none; flex-shrink: 0; }
+  .projects-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+  .projects-section-header .section-header {
+    margin-bottom: 0;
+  }
+
   /* ── SCROLL REVEAL ── */
   .reveal {
     opacity: 0;
@@ -865,9 +897,15 @@
 
 <!-- ── PROJECTS ── -->
 <section id="projects">
-  <div class="section-header reveal">
-    <div class="section-tag">// 03 — Projects</div>
-    <h2 class="section-title">Featured Work</h2>
+  <div class="projects-section-header">
+    <div class="section-header reveal">
+      <div class="section-tag">// 03 — Projects</div>
+      <h2 class="section-title">Featured Work</h2>
+    </div>
+    <button class="btn-pdf reveal" id="pdf-download-btn" onclick="downloadProjectsPDF()">
+      <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download PDF
+    </button>
   </div>
 
   <div class="projects-grid">
@@ -1306,5 +1344,117 @@
     });
   });
 </script>
+
+<!-- html2canvas + jsPDF for Projects PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  // Converts an img element's src to a base64 data URL via fetch (avoids canvas taint)
+  async function imgToDataURL(img) {
+    try {
+      const res = await fetch(img.src);
+      if (!res.ok) return null;
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function downloadProjectsPDF() {
+    const btn = document.getElementById('pdf-download-btn');
+    const section = document.getElementById('projects');
+
+    btn.disabled = true;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="1.5" style="width:13px;height:13px;stroke:currentColor;fill:none;animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Generating...`;
+
+    // Force all reveal elements visible for capture
+    const hiddenEls = section.querySelectorAll('.reveal:not(.visible)');
+    hiddenEls.forEach(el => el.classList.add('visible', '_tmp-visible'));
+
+    // Freeze transition delays so capture is clean
+    const allReveals = section.querySelectorAll('.reveal');
+    const originalDelays = [];
+    allReveals.forEach(el => {
+      originalDelays.push(el.style.transitionDelay);
+      el.style.transitionDelay = '0s';
+    });
+
+    // Pre-convert all images to data URLs to prevent canvas taint
+    const imgEls = Array.from(section.querySelectorAll('img'));
+    const origSrcs = imgEls.map(img => img.getAttribute('src'));
+    const hiddenImgs = [];
+    await Promise.all(imgEls.map(async (img) => {
+      const dataURL = await imgToDataURL(img);
+      if (dataURL) {
+        img.src = dataURL;
+        // Wait for the new src to settle
+        if (!img.complete) await new Promise(r => { img.onload = r; img.onerror = r; });
+      } else {
+        // Can't convert — hide so it doesn't taint the canvas
+        img.style.visibility = 'hidden';
+        hiddenImgs.push(img);
+      }
+    }));
+
+    try {
+      const canvas = await html2canvas(section, {
+        scale: 2,
+        useCORS: false,
+        allowTaint: false,
+        backgroundColor: '#0f0f1a',
+        logging: false,
+        scrollY: -window.scrollY,
+        windowWidth: 1400,
+        ignoreElements: el => el.id === 'pdf-download-btn',
+      });
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+
+      const imgW = pageW;
+      const imgH = (canvas.height * pageW) / canvas.width;
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      let heightLeft = imgH;
+      let yPos = 0;
+
+      pdf.addImage(imgData, 'JPEG', 0, yPos, imgW, imgH);
+      heightLeft -= pageH;
+
+      while (heightLeft > 0) {
+        yPos -= pageH;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, yPos, imgW, imgH);
+        heightLeft -= pageH;
+      }
+
+      pdf.save('Niroshan-Projects.pdf');
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      alert('PDF generation failed. Please try again.');
+    } finally {
+      // Restore image srcs and visibility
+      imgEls.forEach((img, i) => { img.src = origSrcs[i]; });
+      hiddenImgs.forEach(img => { img.style.visibility = ''; });
+      // Restore reveal state
+      hiddenEls.forEach(el => el.classList.remove('_tmp-visible', 'visible'));
+      allReveals.forEach((el, i) => { el.style.transitionDelay = originalDelays[i]; });
+      btn.disabled = false;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="1.5" style="width:13px;height:13px;stroke:currentColor;fill:none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+    }
+  }
+</script>
+<style>
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
 </body>
 </html>
